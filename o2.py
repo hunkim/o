@@ -89,7 +89,7 @@ def generate_response(prompt: str) -> List[Tuple[str, str, float]]:
                     step_data = step_parser.parse(step_raw_output)
                     break
                 except Exception as e:
-                    st.warning(f"Attempt {i + 1} failed. Error: {str(e)}. Retrying...")
+                    st.warning(f"Attempt {i + 1} failed. Retrying...")
 
             if step_data is None and step_raw_output:
                 st.warning("Failed to parse output. Using raw output as fallback.")
