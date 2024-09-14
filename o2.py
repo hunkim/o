@@ -12,6 +12,8 @@ from langchain_upstage import ChatUpstage as Chat
 
 from util import limit_chat_history
 
+JSON_PARSE_TRY_LIMIT = 3
+
 
 class StepOutput(BaseModel):
     title: str = Field(description="Title of the reasoning step")
@@ -66,30 +68,36 @@ llm = Chat(model="solar-pro")
 
 def generate_response(prompt: str) -> List[Tuple[str, str, float]]:
     chat_history: List[BaseMessage] = []
-    chain = chat_prompt | llm | step_parser
+    chain = chat_prompt | llm | StrOutputParser()
 
     start_time = time.time()
 
     for step_count in range(1, 11):
         step_data = None
+        step_raw_output = None
         with st.spinner(f"Generating step {step_count}..."):
             limited_chat_history = limit_chat_history(chat_history)
-            for i in range(7):
+            for i in range(JSON_PARSE_TRY_LIMIT):
                 try:
-                    step_data = chain.invoke(
+                    step_raw_output = chain.invoke(
                         {
                             "chat_history": limited_chat_history,
                             "input": prompt,
                             "format_instructions": step_parser.get_format_instructions(),
                         }
                     )
+                    step_data = step_parser.parse(step_raw_output)
                     break
                 except Exception as e:
-                    st.warning(f"Attempt {i + 1} failed. Retrying...")
+                    st.warning(f"Attempt {i + 1} failed. Error: {str(e)}. Retrying...")
 
-        if step_data is None:
-            st.error("Failed to generate step after 3 attempts.")
-            break
+            if step_data is None and step_raw_output:
+                st.warning("Failed to parse output. Using raw output as fallback.")
+                step_data = StepOutput(
+                    title=f"Step {step_count}",
+                    content=step_raw_output,
+                    next_action="continue",
+                )
 
         with st.expander(step_data.title, expanded=True):
             st.markdown(step_data.content.replace("\n", "<br>"), unsafe_allow_html=True)
@@ -125,37 +133,45 @@ Please follow the format below and provide the final answer in the content:
         ]
     )
 
+    final_chain = final_prompt | llm | StrOutputParser()
+
     total_thinking_time = time.time() - start_time
     st.info(f"Total thinking time: {total_thinking_time:.1f} seconds")
 
-    final_chain = final_prompt | llm | final_answer_parser
+    with st.spinner("Generating final answer..."):
 
-    limited_chat_history = limit_chat_history(chat_history)
-    final_response = None
-    for i in range(7):
-        try:
-            final_response = final_chain.invoke(
-                {
-                    "chat_history": limited_chat_history,
-                    "input": prompt,
-                    "format_instructions": final_answer_parser.get_format_instructions(),
-                }
+        final_response = None
+        raw_output = None
+        for i in range(JSON_PARSE_TRY_LIMIT):
+            try:
+                raw_output = final_chain.invoke(
+                    {
+                        "chat_history": limit_chat_history(chat_history),
+                        "input": prompt,
+                        "format_instructions": final_answer_parser.get_format_instructions(),
+                    }
+                )
+                final_response = final_answer_parser.parse(raw_output)
+                break
+            except Exception as e:
+                st.warning(f"Attempt {i + 1} failed. Error: {str(e)}")
+
+        if final_response is None:
+            st.info("Using raw output as final response.")
+            final_response = FinalAnswer(
+                title="Final Answer",
+                content=raw_output,
+                next_action="done",
             )
-            break
-        except Exception as e:
-            st.warning(f"Attempt {i + 1} failed. Retrying...")
 
-    if final_response is None:
-        st.error("Failed to generate final answer after all attempts.")
-        return
-
-    st.markdown(f"### {final_response.title}")
-    st.markdown(final_response.content.replace("\n", "<br>"), unsafe_allow_html=True)
-    st.write()
+        st.markdown(f"### {final_response.title}")
+        st.markdown(
+            final_response.content.replace("\n", "<br>"), unsafe_allow_html=True
+        )
 
 
 # Streamlit UI
-st.set_page_config(page_title="Solar o2", page_icon="🤔")
+st.set_page_config(page_title="Solar o2", page_icon="����")
 st.title("Solar Reasoning: o2")
 st.write(
     """Inspired by STaR paper, openai o1, refection and https://github.com/bklieger-groq/g1. 
