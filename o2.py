@@ -104,16 +104,19 @@ def generate_response(prompt: str) -> List[Tuple[str, str, float]]:
             (
                 "human",
                 """
-             Please provide the final answer based on your reasoning above.
-             Think step by step and read user query and previous steps carefully.
-             read again and provide best final answer.
+Please provide the final answer based on your reasoning above.
+Describe your thought process as you think step by step, 
+carefully reading the user query and previous steps.
+Then, read again and provide the best final answer.
+Please provide the final answer based on your reasoning above.
+Think step by step and read user query and previous steps carefully.
+Read again and provide best final answer.
              """,
             ),
             MessagesPlaceholder("chat_history"),
             (
                 "human",
-                """
-             User query: {input}
+                """User query: {input}
              
 Please follow the format below and provide the final answer in the content:
 {format_instructions}""",
