@@ -8,6 +8,12 @@ This repository contains toy demos for step-by-step reasoning, inspired by:
 - Implementation from [bklieger-groq/g1](https://github.com/bklieger-groq/g1)
 - And many more
 
+## Quick Demo
+- toy-o1: https://toy-o1.streamlit.app/
+- toy-o2: https://toy-o2.streamlit.app/
+
+<img width="1319" alt="image" src="https://github.com/user-attachments/assets/50f01e84-c0b5-454b-b0da-f807955c9119">
+
 ## Overview
 
 We present two approaches:
@@ -17,11 +23,6 @@ We present two approaches:
 Both approaches have their pros and cons, providing interesting comparisons.
 
 We use [Solar-Pro Preview](https://huggingface.co/upstage/solar-pro-preview-instruct) as the base LLM, but you can try others using Langchain.
-
-## Quick Demo
-- toy-o1: https://toy-o1.streamlit.app/
-- toy-o2: https://toy-o2.streamlit.app/
-
 ## Running Locally
 1. Clone this repository
 2. Add 'UPSTAGE_API_KEY' to your environment variables (use .streamlit config or .env)
