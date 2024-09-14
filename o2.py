@@ -12,6 +12,7 @@ from langchain_upstage import ChatUpstage as Chat
 
 from util import limit_chat_history
 
+
 class StepOutput(BaseModel):
     title: str = Field(description="Title of the reasoning step")
     content: str = Field(description="Content of the reasoning step")
@@ -163,10 +164,6 @@ st.write(
 """
 )
 
-user_input = st.text_input(
-    "Enter your question:", "Number 3.11 vs 3.9. Which one is bigger?"
-)
 
-if st.button("Generate Response"):
-    if user_input:
-        generate_response(user_input)
+if user_input := st.chat_input("3.9 vs 3.11. Which one is bigger?"):
+    generate_response(user_input)

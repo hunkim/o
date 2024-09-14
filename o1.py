@@ -33,7 +33,7 @@ st.title("Solar Reasoning: o1")
 st.write(
     """Inspired by STaR paper, openai o1, refection and SkunkworksAI/reasoning-0.01 dataset. 
          Try Solar-Pro Preview at https://huggingface.co/upstage/solar-pro-preview-instruct.
-         comments, pull request are always welcome at https://github.com/hunkim/o.
+         Comments, pull request are always welcome at https://github.com/hunkim/o.
          """
 )
 
@@ -178,8 +178,6 @@ def perform_task(user_query, task, task_results, chat_history):
     )
 
 
-
-
 def search(query, chat_history, context=None):
     with st.status("Extending query..."):
         q_list = query_context_expansion(query, chat_history, context)
@@ -206,11 +204,9 @@ for message in st.session_state.messages:
     with st.chat_message(role):
         st.markdown(message.content)
 
-q = "3.9 vs 3.11. Which one is bigger?"
-
 search_on = st.checkbox("Search on the web", value=False)
 
-if prompt := st.chat_input(q):
+if prompt := st.chat_input("3.9 vs 3.11. Which one is bigger?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
