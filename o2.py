@@ -171,7 +171,7 @@ Please follow the format below and provide the final answer in the content:
 
 
 # Streamlit UI
-st.set_page_config(page_title="Solar o2", page_icon="����")
+st.set_page_config(page_title="Solar o2", page_icon="🧐")
 st.title("Solar Reasoning: o2")
 st.write(
     """Inspired by STaR paper, openai o1, refection and https://github.com/bklieger-groq/g1. 
