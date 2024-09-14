@@ -1,8 +1,8 @@
-# O: Step-by-Step Reasoning Demos
+# o: Step-by-Step Reasoning Demos
 
 This repository contains toy demos for step-by-step reasoning, inspired by:
 - STaR paper
-- OpenAI's O1
+- OpenAI's o1
 - Reflection techniques
 - SkunkworksAI/reasoning-0.01 dataset
 - Implementation from [bklieger-groq/g1](https://github.com/bklieger-groq/g1)
@@ -11,8 +11,8 @@ This repository contains toy demos for step-by-step reasoning, inspired by:
 ## Overview
 
 We present two approaches:
-1. **O1**: Fixed reasoning based on the SkunkworksAI/reasoning-0.01 dataset. You can also leverage web search.
-2. **O2**: Relies on the LLM's basic planning skills (code mostly reused from bklieger-groq/g1).
+1. **o1**: Fixed reasoning based on the SkunkworksAI/reasoning-0.01 dataset. You can also leverage web search.
+2. **o2**: Relies on the LLM's basic planning skills (code mostly reused from bklieger-groq/g1).
 
 Both approaches have their pros and cons, providing interesting comparisons.
 
