@@ -11,7 +11,7 @@ This repository contains toy demos for step-by-step reasoning, inspired by:
 ## Overview
 
 We present two approaches:
-1. **O1**: Fixed reasoning based on the SkunkworksAI/reasoning-0.01 dataset.
+1. **O1**: Fixed reasoning based on the SkunkworksAI/reasoning-0.01 dataset. You can also leverage web search.
 2. **O2**: Relies on the LLM's basic planning skills (code mostly reused from bklieger-groq/g1).
 
 Both approaches have their pros and cons, providing interesting comparisons.
@@ -19,8 +19,8 @@ Both approaches have their pros and cons, providing interesting comparisons.
 We use [Solar-Pro Preview](https://huggingface.co/upstage/solar-pro-preview-instruct) as the base LLM, but you can try others using Langchain.
 
 ## Quick Demo
-- toy-o1
-- toy-o2
+- toy-o1: https://toy-o1.streamlit.app/
+- toy-o2: https://toy-o2.streamlit.app/
 
 ## Running Locally
 1. Clone this repository
