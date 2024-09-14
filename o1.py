@@ -32,7 +32,9 @@ st.set_page_config(page_title="Solar o1", page_icon="🤔")
 st.title("Solar Reasoning: o1")
 st.write(
     """Inspired by STaR paper, openai o1, refection and SkunkworksAI/reasoning-0.01 dataset. 
-         Try Solar-Pro Preview at https://huggingface.co/upstage/solar-pro-preview-instruct"""
+         Try Solar-Pro Preview at https://huggingface.co/upstage/solar-pro-preview-instruct.
+         comments, pull request are always welcome at https://github.com/hunkim/o.
+         """
 )
 
 

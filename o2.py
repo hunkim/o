@@ -155,7 +155,9 @@ st.set_page_config(page_title="Solar o2", page_icon="🤔")
 st.title("Solar Reasoning: o2")
 st.write(
     """Inspired by STaR paper, openai o1, refection and https://github.com/bklieger-groq/g1. 
-         Try Solar-Pro Preview at https://huggingface.co/upstage/solar-pro-preview-instruct"""
+         Try Solar-Pro Preview at https://huggingface.co/upstage/solar-pro-preview-instruct.
+                  Comments, pull request are always welcome at https://github.com/hunkim/o.
+"""
 )
 
 user_input = st.text_input(

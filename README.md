@@ -37,7 +37,7 @@ llm = Chat(model="solar-pro")
 ```
 
 ## Limitations
-Solar-Pro is only 22B size mode with 4K context windows. 
+Solar-Pro is only 22B size mode with 4K context windows. https://huggingface.co/upstage/solar-pro-preview-instruct
 
 ## Contributions
 comments, pull request are always welcome
