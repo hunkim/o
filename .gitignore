@@ -1,0 +1,6 @@
+.env
+.venv
+secrets.toml
+.DS_Store
+local_cache
+__pycache__/
