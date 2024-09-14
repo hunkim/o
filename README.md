@@ -1,7 +1,7 @@
 # o: Step-by-Step Reasoning Demos
 
 This repository contains toy demos for step-by-step reasoning, inspired by:
-- STaR paper
+- STaR paper https://arxiv.org/abs/2203.14465
 - OpenAI's o1
 - Reflection techniques
 - SkunkworksAI/reasoning-0.01 dataset
