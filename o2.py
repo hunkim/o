@@ -40,6 +40,7 @@ Decide if you need another step or if you're ready to give the final answer.
 ---
 
 USE AS MANY REASONING STEPS AS POSSIBLE. AT LEAST FIVE. DO NOT REPEAT SIMILAR STEPS. DO NOT CONCLUDE in STEPs.
+DOUBLE CHECK PREVIOUS STEP REASONING and CORRECT IF NEEDED.
 BE AWARE OF YOUR LIMITATIONS AS AN LLM AND WHAT YOU CAN AND CANNOT DO. 
 IN YOUR REASONING, INCLUDE EXPLORATION OF ALTERNATIVE ANSWERS. CONSIDER YOU MAY BE WRONG, 
 AND IF YOU ARE WRONG IN YOUR REASONING, WHERE IT WOULD BE. FULLY TEST ALL OTHER POSSIBILITIES. 
@@ -154,7 +155,7 @@ Please follow the format below and provide the final answer in the content:
                 final_response = final_answer_parser.parse(raw_output)
                 break
             except Exception as e:
-                st.warning(f"Attempt {i + 1} failed. Error: {str(e)}")
+                st.warning(f"Attempt {i + 1} failed. Retrying...")
 
         if final_response is None:
             st.info("Using raw output as final response.")
@@ -180,6 +181,8 @@ st.write(
 """
 )
 
+if user_input := st.chat_input("Message to Solar"):
+    with st.chat_message("user"):
+        st.markdown(user_input.replace("\n", "<br>"), unsafe_allow_html=True)
 
-if user_input := st.chat_input("3.9 vs 3.11. Which one is bigger?"):
     generate_response(user_input)

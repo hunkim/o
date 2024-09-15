@@ -206,12 +206,12 @@ for message in st.session_state.messages:
 
 search_on = st.checkbox("Search on the web", value=False)
 
-if prompt := st.chat_input("3.9 vs 3.11. Which one is bigger?"):
+if user_input := st.chat_input("Message to Solar"):
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.markdown(user_input.replace("\n", "<br>"), unsafe_allow_html=True)
 
     if search_on:
-        search_result = search(prompt, st.session_state.messages)
+        search_result = search(user_input, st.session_state.messages)
 
         with st.status("Search Results:"):
             st.write(search_result)
@@ -220,7 +220,7 @@ if prompt := st.chat_input("3.9 vs 3.11. Which one is bigger?"):
             search_result = str(search_result)[:MAX_SEARCH_TOKENS]
             st.session_state.messages.append(
                 HumanMessage(
-                    content=f"FYI search result conext: {search_result} for the query, {prompt}"
+                    content=f"FYI search result conext: {search_result} for the query, {user_input}"
                 )
             )
             st.session_state.messages.append(
@@ -236,16 +236,18 @@ if prompt := st.chat_input("3.9 vs 3.11. Which one is bigger?"):
 
             with st.chat_message("assistant"):
                 response = st.write_stream(
-                    perform_task(prompt, task, task_results, st.session_state.messages)
+                    perform_task(
+                        user_input, task, task_results, st.session_state.messages
+                    )
                 )
                 task_results[task] = response
             break
 
         with st.status(f"Performing task: {task}"):
             response = st.write_stream(
-                perform_task(prompt, task, task_results, st.session_state.messages)
+                perform_task(user_input, task, task_results, st.session_state.messages)
             )
             task_results[task] = response
     # Store the last task result for future reference
-    st.session_state.messages.append(HumanMessage(content=prompt))
+    st.session_state.messages.append(HumanMessage(content=user_input))
     st.session_state.messages.append(AIMessage(content=task_results[GlobalTasks[-1]]))
