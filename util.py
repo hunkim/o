@@ -1,5 +1,4 @@
 from tokenizers import Tokenizer
-
 MAX_TOKENS = 2048
 
 solar_tokenizer = Tokenizer.from_pretrained("upstage/solar-pro-preview-tokenizer")
@@ -15,7 +14,6 @@ def limit_chat_history(chat_history, max_tokens=MAX_TOKENS):
     for message in reversed(chat_history):
         message_length = num_of_tokens(message.content)
         if total_length + message_length > max_tokens:
-            st.warning("Chat history is too long. Truncating.")
             break
         limited_history.insert(0, message)
         total_length += message_length
