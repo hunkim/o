@@ -1,6 +1,5 @@
 streamlit
-langchain
+langchain==0.2.4
 langchain_upstage
 langchain_community
 duckduckgo-search
-pydantic
