@@ -3,4 +3,4 @@ langchain
 langchain_upstage
 langchain_community
 duckduckgo-search
-
+pydantic
