@@ -12,7 +12,7 @@ from langchain_upstage import ChatUpstage as Chat
 
 from util import limit_chat_history
 
-JSON_PARSE_TRY_LIMIT = 3
+JSON_PARSE_TRY_LIMIT = 7
 
 
 class StepOutput(BaseModel):
